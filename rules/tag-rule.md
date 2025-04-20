@@ -1,84 +1,82 @@
-# 📌 Tag Rule – Quy ước sử dụng tag cho tài liệu
+# 📘 Tag Rule – Quy ước sử dụng tag cho tài liệu
 
-Dùng để thống nhất việc đánh tag trong tất cả các tài liệu `.md` trong dự án.  
-Mỗi tag theo định dạng `key:value`, ví dụ: `type:spec`, `feature:auth/login`.
-
----
-
-## ✅ Tag: `type:` – Loại tài liệu
-
-| Tag | Ý nghĩa |
-|------|--------|
-| `type:spec` | Đặc tả chức năng |
-| `type:doc` | Tài liệu kỹ thuật |
-| `type:fix` | Ghi nhận & xử lý bug |
-| `type:task` | Công việc, cập nhật mới |
-
-> 📌 Chi tiết template cho từng loại type: xem trong rules/type-tag-rule.md
+Quy ước gắn tag cho các tài liệu `.md` trong dự án để thống nhất cách tổ chức, tìm kiếm và phân loại.
 
 ---
 
-## ✅ Tag: `feature:` – Nhóm chức năng (có phân cấp)
+## ✅ Cấu trúc tag
 
-### 🔐 Nhóm `points_exchange/` – Đăng nhập & xác thực
-- `feature:points_exchange/paypay`
-- `feature:points_exchange/rakuten`
+Mỗi tag có dạng `key:value`, ví dụ:
 
-### 💳 Nhóm `payment/` – Thanh toán
-- `feature:payment/paidy`
+- `type:spec`
 - `feature:payment/amazon`
-
-> 💡 Khi cần tổng hợp theo nhóm lớn, chỉ cần lọc `feature` bắt đầu bằng tên nhóm ( Ví dụ như `payment/` ).
-> 💡 Mỗi nhóm lớn thì sẽ có nhiều nhóm nhỏ bên trong. Ví dụ như `paypay` là nhóm nhỏ trong nhóm lớn `points_exchange`.
+- `domain:frontend`
 
 ---
 
-## ✅ Tag: `domain:` – Vùng kỹ thuật
+## ✅ Tag `type:` – Loại tài liệu
 
-| Tag | Ý nghĩa |
-|------|--------|
-| `domain:backend` | Logic và API |
-| `domain:frontend` | Giao diện web |
-| `domain:mobile` | Ứng dụng di động |
-| `domain:infra` | Hạ tầng, CI/CD |
-| `domain:shared` | Dùng chung nhiều module |
+| Tag         | Ý nghĩa                     |
+|-------------|-----------------------------|
+| `type:spec` | Tài liệu đặc tả chức năng   |
+| `type:doc`  | Tài liệu kỹ thuật           |
+| `type:fix`  | Ghi chú bug / fix bug       |
+| `type:task` | Mô tả task hoặc thay đổi    |
+
+> 📌 Chi tiết định dạng từng `type:` được mô tả trong file `rules/type-tag-rule.md`.
 
 ---
 
-## 📁 Folder Structure Rule – Quy ước thư mục lưu tài liệu
+## ✅ Tag `feature:` – Nhóm chức năng (phân cấp được)
 
-Tài liệu được lưu trong thư mục `docs/`, chia theo nhóm `feature/` chính.
-Bên trong mỗi nhóm, sẽ bao gồm các nhóm nhỏ trong có cấu trúc như sau:
-
-📁 docs/ │ ├── points_exchange/ │ ├── paypay/ │ │ └── file1.md │ │ └── file2.md │ ├── rakuten/ │ │ └── file1.md │ │ ├── payment/ │ ├── paidy/ │ ├── amazon/
-
-
-### 📄 File naming convention (quy tắc đặt tên file):
-```bash
-<slug-name>__type-<type>.md
-```
+Tag `feature:` đại diện cho nhóm tính năng, hỗ trợ phân cấp theo cấu trúc `feature:<main>/<sub>/<...>`.
 
 Ví dụ:
 
-login__type-spec.md
+- `feature:points_exchange/paypay`
+- `feature:user_management/login_flow`
+- `feature:points_exchange/paypay/session`
 
-fix-login-retry__type-fix.md
+### ⛓ Một file có thể gắn nhiều `feature:`?
 
-> 🎯 Gợi ý: mỗi folder feature-name/ nên có file README.md để index nhanh các tài liệu bên trong.
-> 📌 File index cho cây thư mục được để tại docs/tree-index.json
+✅ **Có.** Nếu tài liệu mô tả một luồng hoặc chức năng liên quan nhiều feature, có thể gắn nhiều tag `feature:` để phản ánh phạm vi ảnh hưởng.
 
 ---
 
-📘 **Hướng dẫn sử dụng**:
-- Mỗi file Markdown nên có phần YAML như sau:
+### 📂 Gợi ý tổ chức file
+
+| Trường hợp                                | Gợi ý                                                                 |
+|-------------------------------------------|-----------------------------------------------------------------------|
+| Tài liệu ngắn, mô tả luồng chung          | Gắn nhiều `feature:` trong 1 file                                     |
+| Tài liệu dài, mỗi phần có logic riêng     | Tách theo từng `feature:`                                            |
+| Luồng liên quan nhiều feature phức tạp    | Tạo file tổng hợp `integration spec` trong thư mục `shared/` hoặc `flows/` |
+
+---
+
+## ✅ Tag `domain:` – Vùng kỹ thuật
+
+| Tag              | Ý nghĩa                          |
+|------------------|----------------------------------|
+| `domain:backend` | Xử lý logic, API                |
+| `domain:frontend`| Giao diện web                   |
+| `domain:mobile`  | Mobile app                      |
+| `domain:infra`   | Hạ tầng, CI/CD, config          |
+| `domain:shared`  | Dùng chung nhiều module/domain  |
+
+---
+
+## 🎯 Mục tiêu
+
+- Chuẩn hóa tagging trong team
+- Hỗ trợ tra cứu, tìm kiếm nhanh
+- Giúp phân tích phạm vi ảnh hưởng theo loại, chức năng, domain
+
+---
+
+## 🧪 Ví dụ gắn tag cho một file
 
 ```yaml
----
-title: "Tài liệu đặc tả tính năng đăng nhập"
 tags:
   - type:spec
-  - feature:auth/login
-  - domain:backend
-created_by: "Email của bạn"
-created_at: "2025-04-17"
----
+  - feature:user_management/login_flow
+  - feature:points_exchange/paypay/session
