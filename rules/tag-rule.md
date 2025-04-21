@@ -57,10 +57,41 @@ Dùng để mô tả **hệ thống hiện tại đang hoạt động như thế
 
 - `Purpose`: Tài liệu này để làm gì?
 - `Overview`: Tổng quan module hoặc hệ thống
-- `Architecture`: Kiến trúc tổng thể, sơ đồ
-- `Flow`: Luồng xử lý chính
+- `Flow`: Luồng xử lý chính ( Phải viết bằng mermaid sequence diagram )
 - `API`: Endpoint liên quan
+
+Ví dụ:
+### POST /api/v1/payments
+
+- **Description**: Tạo mới một giao dịch thanh toán
+- **Auth**: Required (Bearer Token)
+- **Request Body**:
+```json
+{
+  "amount": 1000,
+  "method": "paypay"
+}
+```
+- **Response**:
+```json
+{
+  "id": 101,
+  "status": "pending"
+}
+```
+
 - `Data`: DB schema liên quan
+
+Ví dụ:
+#### 📦 Table: `payment_transactions`
+
+| Column Name     | Type        | Description                          |
+|------------------|-------------|--------------------------------------|
+| `id`             | `BIGINT`    | Khóa chính                           |
+| `user_id`        | `BIGINT`    | Id người dùng                        |
+| `amount`         | `DECIMAL`   | Số tiền giao dịch                    |
+| `status`         | `VARCHAR`   | Trạng thái (pending, success, fail) |
+| `created_at`     | `TIMESTAMP` | Ngày tạo                             |
 - `Config / Env`: Cấu hình đặc biệt
 - `Gotchas / Notes`: Điều cần lưu ý khi maintain
 - `Related`: Tài liệu liên quan
