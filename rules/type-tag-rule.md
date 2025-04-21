@@ -17,11 +17,6 @@ Dùng để mô tả **chức năng mới cần phát triển**, dành cho dev &
 - `Objective`: Mục tiêu chức năng
 - `Scope`: Phạm vi áp dụng
 - `Flow`: Luồng xử lý chính
-- `UI/UX`: Mô tả màn hình, mockup (nếu có)
-- `API`: Thông tin endpoint, input/output
-- `Data`: Cơ sở dữ liệu ảnh hưởng
-- `Business Rules`: Luật nghiệp vụ
-- `Error Handling`: Cách xử lý lỗi
 - `Out of Scope`: Những phần không thuộc phạm vi xử lý
 - `References`: Tài liệu liên quan
 
@@ -37,7 +32,6 @@ Dùng để mô tả **hệ thống hiện tại đang hoạt động như thế
 - `Overview`: Tổng quan module hoặc hệ thống
 - `Architecture`: Kiến trúc tổng thể, sơ đồ
 - `Flow`: Luồng xử lý chính
-- `Folder Structure`: Cấu trúc thư mục
 - `API`: Endpoint liên quan
 - `Data`: DB schema liên quan
 - `Config / Env`: Cấu hình đặc biệt
