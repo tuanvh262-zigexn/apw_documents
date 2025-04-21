@@ -1,55 +1,95 @@
-# 📌 Type Tag Rule – Quy ước sử dụng tag `type:`
+# Type Tag Rule
 
-Dùng để thống nhất việc sử dụng tag `type` trong tất cả các tài liệu `.md` trong dự án.
+## Mục đích
 
-Mỗi tag `type` sẽ chỉ rõ loại tài liệu. Các loại tài liệu bao gồm:
-
-## ✅ Quy định cho từng `type:`
-
-### `type:spec`
-- **Mục đích:** Đặc tả hành vi của hệ thống hoặc module.
-- **Nội dung tối thiểu:**
-  - Mô tả tổng quan chức năng
-  - Luồng chính (main flow)
-  - Trường hợp ngoại lệ
-  - Rule nghiệp vụ
-  - API liên quan (nếu có)
-  - UI, endpoint liên quan (nếu có)
-
-**Ví dụ:** `login__type-spec.md`
+Chuẩn hoá cách sử dụng `type:` trong tài liệu dự án, giúp các thành viên dễ dàng hiểu, viết, tìm kiếm và bảo trì tài liệu hiệu quả hơn.
 
 ---
 
-### `type:doc`
-- **Mục đích:** Tài liệu kỹ thuật, giải thích về các giải pháp, hướng dẫn cài đặt hoặc các thông tin kỹ thuật liên quan.
-- **Nội dung tối thiểu:**
-  - Giải thích thiết kế hệ thống
-  - Cấu trúc database / sơ đồ kiến trúc
+## Danh sách các `type:` hiện tại
 
-**Ví dụ:** `login__type-doc.md`
+### 1. `type:spec` – Đặc tả chức năng (Specification)
 
----
+Dùng để mô tả **chức năng mới cần phát triển**, dành cho dev & QA triển khai.
 
-### `type:fix`
-- **Mục đích:** Ghi nhận bug và cách xử lý.
-- **Nội dung:**
-  - Mô tả bug: input, output, điều kiện xảy ra
-  - Nguyên nhân gốc (root cause)
-  - Cách fix & ảnh hưởng liên quan
-  - Test case đã verify
+#### Cấu trúc bắt buộc:
 
-**Ví dụ:** `fix-login-issue__type-fix.md`
-
----
-
-### `type:task`
-- **Mục đích:** Mô tả một công việc nhỏ, độc lập (viết tài liệu, viết script, tạo schema...).
-- **Nội dung:**
-  - Mục tiêu cụ thể
-  - Cách thực hiện
-  - Kết quả mong muốn
-
-**Ví dụ:** `update-readme-file__type-task.md`
+- `Objective`: Mục tiêu chức năng
+- `Scope`: Phạm vi áp dụng
+- `Flow`: Luồng xử lý chính
+- `UI/UX`: Mô tả màn hình, mockup (nếu có)
+- `API`: Thông tin endpoint, input/output
+- `Data`: Cơ sở dữ liệu ảnh hưởng
+- `Business Rules`: Luật nghiệp vụ
+- `Error Handling`: Cách xử lý lỗi
+- `Out of Scope`: Những phần không thuộc phạm vi xử lý
+- `References`: Tài liệu liên quan
 
 ---
 
+### 2. `type:doc` – Tài liệu kỹ thuật (Technical Documentation)
+
+Dùng để mô tả **hệ thống hiện tại đang hoạt động như thế nào**.
+
+#### Cấu trúc bắt buộc:
+
+- `Purpose`: Tài liệu này để làm gì?
+- `Overview`: Tổng quan module hoặc hệ thống
+- `Architecture`: Kiến trúc tổng thể, sơ đồ
+- `Flow`: Luồng xử lý chính
+- `Folder Structure`: Cấu trúc thư mục
+- `API`: Endpoint liên quan
+- `Data`: DB schema liên quan
+- `Config / Env`: Cấu hình đặc biệt
+- `Gotchas / Notes`: Điều cần lưu ý khi maintain
+- `Related`: Tài liệu liên quan
+
+---
+
+### 3. `type:fix` – Ghi nhận bug / sự cố
+
+Dùng để ghi lại **bug đã xảy ra, nguyên nhân và cách xử lý**.
+
+#### Cấu trúc bắt buộc:
+
+- `Summary`: Tóm tắt lỗi
+- `Root Cause`: Nguyên nhân gốc
+- `Impact`: Mức độ ảnh hưởng
+- `Investigation`: Cách tìm ra bug
+- `Fix Plan`: Cách sửa cụ thể
+- `Deployment Notes`: Triển khai, rollback, migration?
+- `Lesson Learned`: Bài học rút ra
+- `Related`: Link PR, ticket, tài liệu khác
+
+---
+
+### 4. `type:task` – Tác vụ kỹ thuật, cải tiến, update nhỏ
+
+Dùng cho những công việc nhỏ không cần đặc tả đầy đủ như spec.
+
+#### Cấu trúc bắt buộc:
+
+- `Objective`: Mục tiêu task
+- `Background`: Bối cảnh task
+- `Scope`: Phạm vi thực hiện
+- `Steps`: Các bước thực hiện
+- `Impact`: Ảnh hưởng tới logic, API, UI?
+- `Notes`: Điều cần lưu ý
+- `Related`: Link tới issue, spec, PR,…
+
+---
+
+## So sánh nhanh giữa các type:
+
+| Mục                  | `spec`        | `doc`         | `fix`         | `task`        |
+|----------------------|---------------|---------------|---------------|---------------|
+| Mục tiêu             | Đặc tả chức năng mới | Mô tả kỹ thuật hệ thống | Ghi nhận lỗi và cách sửa | Mô tả công việc cụ thể |
+| Bắt đầu khi nào?     | Trước khi dev triển khai | Sau khi chức năng đã tồn tại | Sau khi bug xảy ra | Khi có task được giao |
+| Ai là người viết?    | Dev, PM, QA | Dev chính, team lead | Dev phụ trách fix | Dev thực hiện |
+| Có cần flow không?   | ✅ Có         | ✅ Có         | ❌ Không cần  | ✅ Có thể có |
+| UI/UX                | ✅ nếu có     | Có thể có     | ❌            | ✅ nếu ảnh hưởng |
+| API mô tả            | ✅            | ✅            | Có thể có     | ✅ nếu thay đổi |
+| Data / DB            | ✅            | ✅            | ✅ nếu có     | ✅ nếu ảnh hưởng |
+| Business Rules       | ✅            | Có thể có     | ❌            | Có thể có     |
+| Gotchas / Notes      | ❌            | ✅            | ✅            | ✅            |
+| Related documents    | ✅            | ✅            | ✅            | ✅            |
