@@ -23,7 +23,7 @@ Mỗi tag có dạng `key:value`, ví dụ:
 | `type:fix`  | Ghi chú bug / fix bug       |
 | `type:task` | Mô tả task hoặc thay đổi    |
 
-> 📌 Chi tiết định dạng từng `type:` được mô tả trong file `rules/type-tag-rule.md`.
+> 📌 Chi tiết định dạng từng `type:` được mô tả trong file [`rules/type-tag-rule.md`](https://github.com/tuanvh262-zigexn/apw_documents/blob/main/rules/type-tag-rule.md).
 
 ---
 
