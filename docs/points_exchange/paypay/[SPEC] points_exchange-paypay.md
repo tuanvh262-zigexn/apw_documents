@@ -24,14 +24,15 @@
 ## Flow:
 
 - The main processing flow will include the following steps:
-  **Step 1.** User accesses the MyPage screen
-  **Step 2.** Log in with a TVL account
-  **Step 3.** User clicks the ポイント交換 (Point Exchange) button
-  **Step 4.** Click the ポイントを交換する - (PayPay) (Exchange Points - PayPay) button
-  **Step 5.** Log in to the PayPay account (If the PayPay app is installed, it will open the app; otherwise, it will open the browser)
-  **Step 6.** Agree to link the PayPay account with the TVL account
-  **Step 7.** Linking successful
-  **Step 8.** Return to the TVL app and proceed to exchange points
+
+1. **Step 1.** User accesses the MyPage screen
+2. **Step 2.** Log in with a TVL account
+3. **Step 3.** User clicks the ポイント交換 (Point Exchange) button
+4. **Step 4.** Click the ポイントを交換する - (PayPay) (Exchange Points - PayPay) button
+5. **Step 5.** Log in to the PayPay account (If the PayPay app is installed, it will open the app; otherwise, it will open the browser)
+6. **Step 6.** Agree to link the PayPay account with the4 TVL account
+7. **Step 7.** Linking successful
+8. **Step 8.** Return to the TVL app and proceed to exchange points
 
 ## Out of Scope:
 
