@@ -19,7 +19,40 @@
 
 ### Login with paypay to authenticate user to able to exchange points
 
-- https://www.mermaidchart.com/raw/3a974957-ee8c-41c8-a5a5-d8cc3fa23342?theme=dark&version=v0.1&format=svg
+```mermaid
+---
+config:
+  theme: dark
+  look: handDrawn
+---
+sequenceDiagram
+    actor User as User
+    participant Nuxt2 as Nuxt2
+    participant API_Django as API_Django
+    participant Postgre as Postgre
+    participant Pubsub as Pubsub
+    participant PayPay as PayPay
+    User ->> Nuxt2: After login paypay successfully, auto redirect to exchange point page
+    activate Nuxt2
+    Nuxt2 ->> API_Django: POST: mypage/point_input
+    activate API_Django
+    API_Django ->> Postgre: Create a record with merchantCashbackid: api/v1/paypay/cashback
+    activate Postgre
+    API_Django ->> Pubsub: Publish
+    activate Pubsub
+    Pubsub ->> PayPay: POST: If not success, create cashback again
+    activate PayPay
+    PayPay ->> Pubsub: Return data cashback granting response
+    critical webhook
+        PayPay ->> API_Django: POST: /api/v1/pavpav/cashback/callback
+        API_Django ->> Postgre: Update data matching contents of merchantCashbackld
+    end
+    deactivate Nuxt2
+    deactivate API_Django
+    deactivate Pubsub
+    deactivate Postgre
+    deactivate PayPay
+```
 
 ### Exchange points from Travelist to Paypay
 
