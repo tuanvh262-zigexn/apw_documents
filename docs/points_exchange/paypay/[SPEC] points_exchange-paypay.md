@@ -13,10 +13,11 @@
 ## Mục tiêu:
 
 - Cho phép người dùng thực hiện việc chuyển đổi số điểm points từ ứng dụng TVL sang ví PayPay.
+- Nếu thoã điều kiện thì được thực hiện chuyển đổi, nếu không thoã thì không được thực hiện.
 
 ## Phạm vi:
 
-- **Người dùng:** Tất cả người dùng thoã điều kiện phía trên
+- **Người dùng:** Tất cả người dùng thoã điều kiện
 - **Nền tảng:** Ứng dụng (iOS & Android)
 - **Môi trường:** Production và Sand
 - **Tỉ lệ đổi điểm:** 1:1
