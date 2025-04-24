@@ -60,8 +60,7 @@ sequenceDiagram
 
     opt Bật chế độ Phát Triển (Dev Mode)
         PayPayApp->>PayPayApp: 3. Ấn logo PayPay 7 lần (Dev Mode)
-        PayPayApp->>PayPayLogin: 3. Chọn "Log in with PayPay for Developers account"
-    or (trình duyệt)
+        PayPayApp->>PayPayLogin: 3. Chọn "Log in with PayPay for Developers account" or (trình duyệt)
         Browser->>Browser:  Dev Mode URL: https://stg-www.sandbox.paypay.ne.jp/
     end
 

@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    participant User as Người dùng
+    participant TVLApp as Ứng dụng TVL
+    participant PayPayApp as Ứng dụng PayPay (mobile)
+    participant Browser as Trình duyệt (web)
+    participant PayPayLogin as PayPay Login
+    participant Consent as Màn hình chấp thuận
+
+    User->>TVLApp: 1. Ấn nút "Đổi điểm PayPay" (MyPage)
+    alt PayPayApp Installed
+        TVLApp-->>PayPayApp: 2. Mở PayPay App vào trang đăng nhập
+    else Không cài PayPay App
+        TVLApp-->>Browser: 2. Mở trình duyệt đến trang đăng nhập PayPay
+    end
+
+    opt Bật chế độ Phát Triển (Dev Mode)
+        PayPayApp->>PayPayApp: 3. Ấn logo PayPay 7 lần (Dev Mode)
+        PayPayApp->>PayPayLogin: 3. Chọn "Log in with PayPay for Developers account" or (trình duyệt)
+        Browser->>Browser:  Dev Mode URL: https://stg-www.sandbox.paypay.ne.jp/
+    end
+
+    PayPayLogin->>User: 4. Yêu cầu nhập Phone/Password
+    User->>PayPayLogin: Nhập Phone/Password
+    PayPayLogin-->>Consent: 5. Đăng nhập thành công và chuyển tới màn hình chấp thuận liên kết
