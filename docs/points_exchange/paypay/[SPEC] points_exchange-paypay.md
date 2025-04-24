@@ -13,15 +13,6 @@
 ## Mục tiêu:
 
 - Cho phép người dùng thực hiện việc chuyển đổi số điểm points từ ứng dụng TVL sang ví PayPay.
-- Nếu người dùng thoã điều kiện bên dưới thì được phép đổi nếu không thoã điều kiện thì không được phép đổi.
-- Điều kiện bao gồm:
-  1. Phải có ít nhất 01 lần thành toán đặt vé máy bay thành công trong vòng 1 năm.
-  2. Phải có số điểm points có trong tài khoản TVL:
-- Người dùng có thể kiếm điểm points thông qua các tính năng sau:
-  1. Thực hiện tạo tài khoản và đăng nhập thành công vào ứng dụng TVL.
-  2. Thực hiện hoàn tất việc mua vé máy bay.
-  3. Thực hiện việc đánh giá.
-- Trang quản trị có thể dùng để thống kê và xuất báo cáo lượt đổi cũng như số điểm đổi trên từng người dùng.
 
 ## Phạm vi:
 
@@ -122,9 +113,3 @@ sequenceDiagram
   - Chuyển điểm sang Gift Card, voucher, hoặc partner khác.
 
 ## References:
-
-- [Sequence Diagrams](./[DOC]_sequence_diagrams.md)
-- [Database and ERD diagrams](./[DOC]_table_and_ER_diagram.md)
-- [How to deploy](./[DOC]_how_to_deploy.md)
-- [How to download the point finance report](./[SPEC]_how_to_download_report.md)
-- [How to test funtion exchange points from TVL to Paypay (on Sand)](./[SPEC]_how_to_test.md)
