@@ -1,43 +1,43 @@
 ```yaml
- Tiêu đề: Đăng nhập tài khoản PayPay
- Mô tả: Tài liệu này trình bày luồng xử lý đăng nhập vào tài khoản PayPay để thực hiện việc liên kết tài khoản TVL và tài khoản PayPay thông qua ứng dụng PayPay hoặc trình duyệt.
+ Tiêu đề: Tính năng đổi điểm từ TVL App sang PayPay
+ Mô tả: Tài liệu này trình bày chi tiết sơ đồ Sequence Diagram cùng luồng xử lý chính để thực hiện việc liên kết và trao đổi điểm thưởng giữa ứng dụng TVL và dịch vụ PayPay, bao gồm từ bước khởi tạo yêu cầu, xác thực người dùng trên cả hai hệ thống đến quá trình xác nhận và hoàn tất giao dịch với tỉ lệ quy đổi 1:1.
  tags:
   - type:spec
-  - feature:points_exchange/paypay/login
+  - feature:points_exchange/paypay
   - domain:shared
   - created_by: nhuthq@zigexn.vn
-  - created_at: 2025-04-24
+  - created_at: 2025-04-22
 ----
 ```
 
 ## Mục tiêu:
 
-- Mô tả luồng đăng nhập tài khoản PayPay cá nhân của người dùng, mục tiêu liên để kết tài khoản TVL và tài khoản PayPay.
+- Cho phép người dùng thực hiện việc chuyển đổi số điểm từ ứng dụng TVL sang ví PayPay.
+- Nếu thoã điều kiện thì được thực hiện chuyển đổi, nếu không thoã thì không được thực hiện.
 - Điều kiện:
-  - Người dùng phải có tài khoản PayPay cá nhân đã tạo trước đó
+  - Người dùng phải có ít nhất 01 lần thanh toán mua vé bay thành công trong vòng 1 năm.
+  - Người dùng phải có số điểm khả dụng
 
 ## Phạm vi:
 
-- **Người dùng:** Tất cả người dùng có tài khoản PayPay
-- **Nền tảng:** Browser, Ứng dụng PayPay (iOS & Android)
+- **Người dùng:** Tất cả người dùng thoã điều kiện
+- **Nền tảng:** Ứng dụng (iOS & Android)
 - **Môi trường:** Production và Sand
+- **Tỉ lệ đổi điểm:** 1:1
+  - Ví dụ: 100 điểm TVL có thể đổi sang 100 điểm PayPay
 
 ## Luồng xử lý:
 
 - Luồng xử lý chính sẽ bao gồm các bước sau:
 
-  - **Bước 1.** Người dùng ấn vào nút đổi điểm PayPay trên ứng dụng TVL ở trang MyPage.
-  - **Bước 2.** Nếu thiêt bị có cài đặt ứng dụng PayPay thì sẽ mở ứng dụng PayPay, nếu không sẽ mở trình duyệt, sau đó đến trang đặng nhập tài khoản PayPay.
-  - **Bước 3.** Để bật chế độ Phát Triển thì ấn vào logo PayPay 7 lần liên tiếp ở góc trái trên màn hình của ứng dụng PayPay (chỉ áp dụng cho ứng dụng PayPay), sau đó ấn vào nút "Log in with PayPay for Developers account".
-  - **Bước 4.** Đăng nhập tài khoản PayPay cá nhân (hoặc bằng tài khoản kiểm thử) bằng Phone/Password. - [PayPay Login](./[SPEC]_paypay_login.md)
-  - **Bước 5.** Đăng nhập thành công, ứng dụng tự động di chuyển đến màn hình yêu cầu chấp thuận liên kết tài khoản.
-
-- Chú thích:
-  - Trong quá trình phát triển/kiểm thử nên bật chế độ Phát Triển và sử dụng tài khoản được cấp trước đó để không bị ảnh hưởng.
-  - Chế độ Phát Triển có hỗ trợ trên cả nền tảng ứng dụng PayPay và trình duyệt/
-  - ## Cách thức bật chế độ Phát Triển
-    - Ứng dụng PayPay: Thao tác như **Bước 3**.
-    - Trình duyệt: Liên kết có tên miền: https://stg-www.sandbox.paypay.ne.jp/
+  - **Bước 1.** Người dùng mở ứng dụng TVL.
+  - **Bước 2.** Mở sang trang MyPage và thực hiện đăng nhập tài khoản TVL thành công.
+  - **Bước 3.** Người dùng ấn vào nút ポイント交換 (Point Exchange).
+  - **Bước 4.** Kế tiếp ấn vào nút ポイントを交換する - (PayPay) (Exchange Points - PayPay).
+  - **Bước 5.** Người dùng cần phải đăng nhập vào tài khoản PayPay cá nhân (If the PayPay app is installed, it will open the app; otherwise, it will open the browser).
+  - **Bước 6.** Thực hiện việc chấp nhập liên kết tài khoản giữa TVL và PayPay. - [PayPay Login](./[SPEC]_paypay_login.md)
+  - **Bước 7.** Liên kết thành công và trở về ứng dụng TVL.
+  - **Bước 8.** Ứng dụng mở trang đổi điểm và cho phép chọn số điểm mà người dùng muốn qui đổi với tỉ lệ là 1:1.
 
 ## Sequence Diagram: Chuyển đổi điểm TVL ↔ PayPay
 
@@ -46,70 +46,75 @@ sequenceDiagram
     autonumber
     participant User as Người dùng
     participant TVLApp as Ứng dụng TVL
-    participant PayPayApp as Ứng dụng PayPay (mobile)
-    participant Browser as Trình duyệt (web)
-    participant PayPayLogin as PayPay Login
-    participant Consent as Màn hình chấp thuận
+    participant TVLServer as TVL Server
+    participant PayPayApp as Ứng dụng PayPay / Trình duyệt
+    participant PayPayServer as PayPay Server
 
-    User->>TVLApp: 1. Ấn nút "Đổi điểm PayPay" (MyPage)
-    alt PayPayApp Installed
-        TVLApp-->>PayPayApp: 2. Mở PayPay App vào trang đăng nhập
-    else Không cài PayPay App
-        TVLApp-->>Browser: 2. Mở trình duyệt đến trang đăng nhập PayPay
-    end
+    %% Bước 1: Mở ứng dụng
+    User->>TVLApp: Mở ứng dụng TVL
 
-    opt Bật chế độ Phát Triển (Dev Mode)
-        PayPayApp->>PayPayApp: 3. Ấn logo PayPay 7 lần (Dev Mode)
-        PayPayApp->>PayPayLogin: 3. Chọn "Log in with PayPay for Developers account"
-    or (trình duyệt)
-        Browser->>Browser:  Dev Mode URL: https://stg-www.sandbox.paypay.ne.jp/
-    end
+    %% Bước 2: Đăng nhập TVL
+    TVLApp->>TVLServer: Yêu cầu login
+    TVLServer-->>TVLApp: Xác nhận login thành công
+    TVLApp-->>User: Hiển thị MyPage
 
-    PayPayLogin->>User: 4. Yêu cầu nhập Phone/Password
-    User->>PayPayLogin: Nhập Phone/Password
-    PayPayLogin-->>Consent: 5. Đăng nhập thành công và chuyển tới màn hình chấp thuận liên kết
+    %% Bước 3: Chọn Point Exchange
+    User->>TVLApp: Ấn nút ポイント交換
+
+    %% Bước 4: Chọn Exchange with PayPay
+    User->>TVLApp: Ấn nút ポイントを交換する (PayPay)
+    TVLApp->>TVLServer: Tạo request liên kết PayPay
+    TVLServer-->>TVLApp: Trả về URL/nonce
+
+    %% Bước 5: Đăng nhập PayPay
+    TVLApp->>PayPayApp: Mở PayPayApp hoặc trình duyệt với URL
+    User->>PayPayApp: Nhập thông tin login PayPay
+    PayPayApp->>PayPayServer: Xác thực user
+    PayPayServer-->>PayPayApp: Xác thực thành công
+
+    %% Bước 6: Đồng ý liên kết
+    PayPayApp->>PayPayServer: Gửi xác nhận liên kết đến TVL
+    PayPayServer-->>TVLServer: Thông báo liên kết thành công
+
+    %% Bước 7: Quay về TVL
+    PayPayApp-->>TVLApp: Redirect về TVLApp với token liên kết
+    TVLApp->>TVLServer: Xác nhận token liên kết
+    TVLServer-->>TVLApp: Liên kết hoàn tất
+
+    %% Bước 8: Đổi điểm
+    TVLApp->>TVLApp: Hiển thị màn hình chọn số điểm (tỉ lệ 1:1)
+    User->>TVLApp: Chọn số điểm và xác nhận
+    TVLApp->>TVLServer: Thực hiện exchange điểm
+    TVLServer-->>TVLApp: Cập nhật thành công
+    TVLApp-->>User: Hiển thị kết quả
 ```
 
 - Giải thích các Actor
-  - **Người dùng (User):** Khách hàng sử dụng ứng dụng TVL trên thiết bị di động.
-  - **Ứng dụng TVL (TVLApp):** Ứng dụng TVL, nơi người dùng khởi tạo yêu cầu đổi điểm sang PayPay.
-  - **Ứng dụng PayPay (mobile) (PayPayApp):** Ứng dụng PayPay cài đặt trên thiết bị, chỉ tương tác khi đã được cài sẵn.
-  - **Trình duyệt (Browser):** Mở trang web PayPay khi không cài sẵn ứng dụng.
-  - **PayPay Login (PayPayLogin):** Module/flow xử lý đăng nhập PayPay (cả mobile và web).
-  - **Màn hình chấp thuận (Consent):** Giao diện yêu cầu người dùng đồng ý liên kết tài khoản.
+  - **Người dùng (User):** Là cá nhân sử dụng ứng dụng TVL để thực hiện chuyển đổi điểm. Người dùng phải đăng nhập cả tài khoản TVL và PayPay để liên kết và đổi điểm.
+  - **Ứng dụng TVL (TVLApp):** Giao diện phía client mà người dùng thao tác. Chịu trách nhiệm điều hướng màn hình, hiển thị nút Point Exchange và tích hợp PayPay thông qua URL/SDK.
+  - **TVL Server (TVLServer):** Backend của TVL, xử lý các request đăng nhập, phát sinh request liên kết PayPay, xác nhận token liên kết và thực hiện đổi điểm.
+  - **Ứng dụng PayPay / Trình duyệt (PayPayApp):** Phần mềm PayPay trên thiết bị hoặc trình duyệt web được mở khi người dùng chọn liên kết PayPay. Chịu trách nhiệm xác thực người dùng và thu thập xác nhận liên kết.
+  - **PayPay Server (PayPayServer):** Backend của PayPay, nhận yêu cầu xác thực login, xử lý chấp nhận liên kết và trả về kết quả về TVL Server.
 
 ## Out of Scope:
 
 - Dưới đây là một số điểm không nằm trong phạm vi xử lý của tính năng này, hãy lưu ý:
-  - Quản lý số dư và giao dịch PayPay chi tiết
-    - Xem lịch sử giao dịch trên PayPay.
-    - Nạp/rút tiền hoặc đổi điểm sang tiền mặt.
-  - Xác thực bảo mật mở rộng
-    - Thực hiện xác thực hai yếu tố (2FA) như OTP qua SMS hoặc email.
-    - Sinh và quản lý mã QR PayPay.
-  - Quản lý tài khoản người dùng TVL
-    - Đăng ký, đăng nhập, hoặc thay đổi thông tin tài khoản TVL.
-    - Đồng bộ điểm TVL với các hệ thống khác ngoài PayPay.
-  - Tương tác với các cổng thanh toán khác
-    - Đổi điểm sang các ví điện tử khác (Momo, ZaloPay, AirPay…).
-    - Thanh toán trực tiếp qua cổng ngân hàng.
-  - Xử lý lỗi mạng/đứt kết nối
-    - Cơ chế retry, hiển thị thông báo lỗi khi mất kết nối Internet.
-    - Quản lý trạng thái ngoại tuyến.
-  - Tối ưu UI/UX và analytics
-  - Thu thập dữ liệu phân tích hành vi người dùng trong flow này. -
-    - A/B testing hay tối ưu giao diện chuyển điểm.
-  - Xử lý đa ngôn ngữ và quốc tế hóa
-    - Hiển thị ngôn ngữ khác ngoài tiếng Việt/tiếng Anh.
-    - Định dạng ngày giờ, tiền tệ theo locale khác.
-  - Quản lý phiên làm việc và bảo mật token
-    - Token refresh, hết hạn session, logout tự động.
-  - Các tác vụ hậu xử lý sau khi liên kết thành công
-    - Gửi email hoặc thông báo đẩy (push notification) xác nhận.
-  - Đồng bộ lịch sử đổi điểm lên hệ thống CRM.
-    - Test tự động và CI/CD
-    - Viết script unit test, e2e test cho flow đổi điểm.
-    - Thiết lập pipeline CI/CD để deploy flow này.
+  - Quản lý tài khoản TVL:
+    - Đăng ký tài khoản mới, thay đổi mật khẩu, hoặc cập nhật thông tin cá nhân của người dùng.
+    - Xử lý trường hợp quên mật khẩu hoặc xác thực hai lớp (2FA).
+  - Quản lý ví PayPay:
+    - Nạp tiền vào ví PayPay, rút tiền về ngân hàng, xem lịch sử giao dịch chi tiết trên PayPay.
+    - Thay đổi cài đặt bảo mật hoặc thông tin cá nhân trên ứng dụng PayPay.
+  - Xử lý lỗi mạng / server chung:
+    - Cơ chế retry tự động khi mất kết nối internet toàn cục (ngoài việc hiển thị thông báo lỗi cơ bản).
+    - Giải pháp fallback nếu TVL Server hoặc PayPay Server bị downtime kéo dài.
+  - Hỗ trợ đa nền tảng bao gồm SP và PC.
+  - Hỗ trợ việc phân tích các giao dịch.
+  - Tự động gia hạn token PayPay khi hết hạn mà không qua flow UI.
+  - Lưu session lâu dài hoặc “Remember me” cho PayPay.
+  - Các phương thức thanh toán khác.
+  - Tích hợp với ví điện tử/ngân hàng khác ngoài PayPay.
+  - Chuyển điểm sang Gift Card, voucher, hoặc partner khác.
 
 ## References:
 
