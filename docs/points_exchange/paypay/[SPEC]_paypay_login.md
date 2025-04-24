@@ -117,3 +117,6 @@ sequenceDiagram
   - Chuyển điểm sang Gift Card, voucher, hoặc partner khác.
 
 ## References:
+
+- [Points Exchange PayPay](./[SPEC]_points_exchange_paypay.md)
+- [PayPay document:](https://www.paypay.ne.jp/opa/doc/v1.0/account_link.html#section/Acquire-user-authorization)
