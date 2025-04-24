@@ -41,6 +41,7 @@ Dùng để mô tả **chức năng mới cần phát triển**, dành cho dev &
 
 #### Cấu trúc bắt buộc:
 
+- `Title`: Mô tả vắn tắt về chức năng
 - `Objective`: Mục tiêu chức năng
 - `Scope`: Phạm vi áp dụng
 - `Flow`: Luồng xử lý chính
@@ -169,10 +170,14 @@ Ví dụ:
 
 ---
 
-## 🧪 Ví dụ gắn tag cho một file
+## 🧪 Ví dụ gắn tag cho một file ( Bắt buộc có cấu trúc sau ở đầu file ) 
 
 ```yaml
 tags:
   - type:spec
-  - feature:user_management/login_flow
-  - feature:points_exchange/paypay/session
+  - title: 'ABC'
+  - description: 'Mô tả chi tiết'
+  - feature:points_exchange/paypay
+  - domain:shared
+  - created_by: nhuthq@zigexn.vn
+  - created_at: 2025-04-22
