@@ -34,84 +34,68 @@
 ## Flow:
 
 - Luồng xử lý chính bao gồm các bước sau:
-
-**Trường hợp 1: Thiết bị có cài App PayPay**
-
-- **Bước 1** Người dùng ấn nút "Đổi điểm PayPay" trên trang MyPage của ứng dụng TVL.
-- **Bước 2** Ứng dụng mở App PayPay.
-- **Bước 3** Trong App PayPay:
-  - Nếu là môi trường phát triển: người dùng ấn logo PayPay 7 lần để bật Developer Mode.
-  - Chọn **"Log in with PayPay for Developers account"** (nếu áp dụng).
-- **Bước 4** Nhập số điện thoại và mật khẩu.
-- **Bước 5** Đăng nhập thành công, app tự động chuyển đến màn hình chấp thuận liên kết tài khoản.
-
-- **Bước 6** Sau khi chấp thuận, hệ thống PayPay redirect ngược về TVL App, kèm theo authorization code.
-- **Bước 7** TVL Backend xử lý:
-
-  - Gửi code để lấy access token.
-  - Lưu access token & info vào bảng `Session`.
-
-  ```mermaid
-  sequenceDiagram
-    autonumber
-    participant User as Người dùng
-    participant TVLApp as Ứng dụng TVL
-    participant PayPayApp as App PayPay
-    participant PayPayLogin as PayPay Login
-    participant Consent as Màn hình chấp thuận
-    participant TVLBE as TVL Backend
-
-    User->>TVLApp: 1. Ấn nút "Đổi điểm PayPay"
-    TVLApp-->>PayPayApp: 2. Mở App PayPay
-    opt Môi trường phát triển
-        PayPayApp->>PayPayApp: 3. Ấn logo 7 lần để bật Dev Mode
-        PayPayApp->>PayPayLogin: 4. Chọn "Log in with Developer Account"
-    end
-    PayPayLogin->>User: 5. Nhập Phone/Password
-    User->>PayPayLogin: Gửi thông tin đăng nhập
-    PayPayLogin-->>Consent: 6. Chuyển đến màn hình xác nhận liên kết
-    User->>Consent: 7. Chấp thuận liên kết
-    Consent-->>TVLApp: 8. Redirect kèm Authorization Code
-    TVLApp->>TVLBE: 9. Gửi Authorization Code
-    TVLBE->>PayPayLogin: 10. Đổi token từ PayPay
-    PayPayLogin-->>TVLBE: 11. Trả về Access Token
-    TVLBE->>TVLBE: 12. Lưu access token vào bảng Session
-  ```
-
-**Trường hợp 2: Thiết bị KHÔNG có cài App PayPay**
-
-- **Bước 1** Người dùng ấn nút "Đổi điểm PayPay" trên MyPage.
-- **Bước 2** Ứng dụng mở trình duyệt web đến trang đăng nhập PayPay.
-- **Bước 3** Nếu là môi trường phát triển:
-  - Truy cập domain `https://stg-www.sandbox.paypay.ne.jp/` (Developer Mode).
-- **Bước 4** Người dùng đăng nhập bằng tài khoản PayPay.
-- **Bước 5** Sau khi xác thực, redirect về ứng dụng TVL với authorization code.
-- **Bước 6** TVL Backend thực hiện tương tự:
+- **Bước 1** Người dùng mở ứng dụng TVL và nhấn nút "Đổi điểm PayPay" từ màn hình MyPage.
+- **Bước 2** Ứng dụng TVL kiểm tra nếu thiết bị có cài đặt App PayPay:
+  - Nếu có App PayPay:
+    - App TVL mở ứng dụng PayPay thông qua URL scheme.
+    - Trong môi trường phát triển, người dùng cần ấn 7 lần vào logo để bật Developer Mode.
+    - Người dùng chọn “Log in with Developer Account” (nếu có).
+  - Nếu không có App PayPay:
+    - Ứng dụng TVL mở trình duyệt mặc định, điều hướng đến trang đăng nhập của PayPay.
+    - Trong môi trường phát triển, người dùng sẽ được điều hướng tới domain sandbox (https://stg-www.sandbox.paypay.ne.jp/).
+- **Bước 3** Người dùng nhập số điện thoại và mật khẩu của tài khoản PayPay.
+- **Bước 4** Sau khi xác thực thành công, PayPay hiển thị màn hình chấp thuận liên kết tài khoản.
+- **Bước 5** Người dùng nhấn chấp thuận, hệ thống PayPay redirect về lại ứng dụng TVL (deep link hoặc universal link), kèm theo authorization code.
+- **Bước 6** Ứng dụng TVL nhận code và gửi code này về TVL Backend để xử lý.
+- **Bước 7** TVL Backend gọi API của PayPay để đổi code lấy access token và thông tin người dùng.
+- **Bước 8** Sau khi nhận được access token, hệ thống sẽ lưu thông tin đăng nhập PayPay vào bảng Session.
+- **Bước 9** Ứng dụng TVL cập nhật trạng thái liên kết thành công và thông báo cho người dùng.
 
 ```mermaid
 sequenceDiagram
-    autonumber
-    participant User as Người dùng
-    participant TVLApp as Ứng dụng TVL
-    participant Browser as Trình duyệt
-    participant PayPayLogin as PayPay Login
-    participant Consent as Màn hình chấp thuận
-    participant TVLBE as TVL Backend
+  autonumber
+  participant User as Người dùng
+  participant TVLApp as Ứng dụng TVL
+  participant PayPayApp as App PayPay
+  participant Browser as Trình duyệt Web
+  participant PayPayLogin as PayPay Login
+  participant Consent as Màn hình chấp thuận
+  participant TVLBE as TVL Backend
 
-    User->>TVLApp: 1. Ấn nút "Đổi điểm PayPay"
-    TVLApp-->>Browser: 2. Mở trình duyệt đến trang login
+  Note over User,TVLApp: Bắt đầu luồng xử lý
+
+  User->>TVLApp: 1. Ấn nút "Đổi điểm PayPay"
+
+  alt Có cài App PayPay
+    TVLApp->>PayPayApp: 2. Mở App PayPay
+
     opt Môi trường phát triển
-        Browser->>Browser: 3. Truy cập domain Dev Mode
+      PayPayApp->>PayPayApp: Bật Developer Mode (ấn logo 7 lần)
+      PayPayApp->>PayPayLogin: Chọn "Log in with Developer Account"
     end
-    PayPayLogin->>User: 4. Nhập Phone/Password
-    User->>PayPayLogin: Gửi thông tin đăng nhập
-    PayPayLogin-->>Consent: 5. Hiển thị màn hình xác nhận liên kết
-    User->>Consent: 6. Chấp thuận liên kết
-    Consent-->>TVLApp: 7. Redirect về App với Authorization Code
-    TVLApp->>TVLBE: 8. Gửi Authorization Code
-    TVLBE->>PayPayLogin: 9. Đổi code lấy token
-    PayPayLogin-->>TVLBE: 10. Trả về Access Token
-    TVLBE->>TVLBE: 11. Lưu access token vào bảng Session
+  else Không có App PayPay
+    TVLApp->>Browser: 2. Mở trình duyệt đến trang login
+    opt Môi trường phát triển
+      Browser->>Browser: Truy cập domain Dev Mode
+    end
+    Browser->>PayPayLogin: Điều hướng login
+  end
+
+  PayPayLogin->>User: 3. Nhập số điện thoại & mật khẩu
+  User-->>PayPayLogin: Gửi thông tin đăng nhập
+  PayPayLogin-->>Consent: 4. Hiển thị màn hình chấp thuận
+  User->>Consent: 5. Chấp thuận liên kết
+
+  Consent-->>TVLApp: 6. Redirect về App với Authorization Code
+  TVLApp->>TVLBE: 7. Gửi Authorization Code
+  TVLBE->>PayPayLogin: 8. Gọi API lấy Access Token
+  PayPayLogin-->>TVLBE: 9. Trả về Access Token
+  TVLBE->>TVLBE: 10. Lưu token & thông tin vào bảng Session
+
+  TVLApp-->>User: Kết thúc liên kết
+
+  Note over User,TVLBE: Kết thúc luồng xử lý đăng nhập & liên kết
+
 ```
 
 - TVL Backend giờ đóng vai trò:
