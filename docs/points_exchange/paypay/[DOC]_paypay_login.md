@@ -114,7 +114,7 @@ sequenceDiagram
     TVLBE->>TVLBE: 11. Lưu access token vào bảng Session
 ```
 
-- TVLServer giờ đóng vai trò:
+- TVL Backend giờ đóng vai trò:
   - Nhận callback từ PayPay chứa authorization code.
   - Gọi PayPay token API để đổi lấy access token và thông tin người dùng.
   - Lưu thông tin vào bảng Session để đánh dấu trạng thái login.
