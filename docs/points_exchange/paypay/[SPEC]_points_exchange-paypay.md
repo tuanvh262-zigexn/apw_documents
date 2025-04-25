@@ -16,7 +16,7 @@
 - Nếu thoã điều kiện thì được thực hiện chuyển đổi, nếu không thoã thì không được thực hiện.
 - Điều kiện:
   - Người dùng phải có ít nhất 01 lần thanh toán mua vé bay thành công trong vòng 1 năm.
-  - Người dùng phải có số điểm khả dụng
+  - Người dùng phải có số điểm > 0.
 
 ## Phạm vi:
 
