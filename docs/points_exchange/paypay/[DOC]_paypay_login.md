@@ -1,6 +1,7 @@
 ```yaml
  Tiêu đề: Tài liệu kỹ thuật về luồng đăng nhập qua PayPay
- Mô tả: Tài liệu này trình bày kỹ thuật về luồng xử lý đăng nhập vào tài khoản PayPay để thực hiện việc liên kết tài khoản TVL và tài khoản PayPay thông qua ứng dụng PayPay hoặc trình duyệt.
+ Mô tả: Tài liệu này trình bày chi tiết luồng xử lý đăng nhập vào tài khoản PayPay nhằm phục vụ việc liên kết tài khoản TVL và PayPay thông qua ứng dụng PayPay hoặc trình duyệt. Đồng thời mô tả cách bật Developer Mode để phục vụ môi trường kiểm thử.
+
  tags:
   - type:doc
   - feature:points_exchange/paypay/login
@@ -12,7 +13,7 @@
 
 ## Purpose:
 
-- Tài liệu này mô tả chi tiết luồng đăng nhập tài khoản PayPay nhằm phục vụ cho việc liên kết tài khoản giữa TVL App và PayPay. Quá trình này cho phép người dùng xác thực PayPay thông qua ứng dụng PayPay hoặc trình duyệt web, với hỗ trợ cho môi trường Production và môi trường Sandbox (phục vụ kiểm thử).
+- Tài liệu này nhằm mục đích cung cấp mô tả kỹ thuật chi tiết liên quan đến quá trình đăng nhập tài khoản PayPay – một bước trung gian quan trọng trong quá trình liên kết tài khoản giữa TVL App và PayPay, từ đó cho phép người dùng thực hiện tính năng chuyển đổi điểm.
 
 ## Overview:
 
@@ -75,6 +76,13 @@ sequenceDiagram
   - Trả kết quả về lại frontend.
 
 ## API:
+
+| Endpoint               | Method | Description                                                |
+| ---------------------- | ------ | ---------------------------------------------------------- |
+| `/paypay/authorize`    | GET    | Khởi tạo luồng đăng nhập PayPay, redirect đến URL xác thực |
+| `/paypay/callback`     | POST   | Nhận callback từ PayPay sau khi người dùng xác thực        |
+| `/paypay/token`        | POST   | Đổi authorization code lấy access token từ PayPay          |
+| `/paypay/link-account` | POST   | Lưu thông tin tài khoản PayPay vào bảng Session của TVL    |
 
 - **Lưu ý:** Trong luồng đăng nhập PayPay, không có API từ phía TVL trực tiếp xử lý việc login, vì tất cả việc xác thực đều thực hiện trên nền tảng PayPay. Tuy nhiên, một số thông tin kỹ thuật liên quan có thể được sử dụng từ tài liệu chính thức của PayPay:
   | Thông tin | Mô tả |
