@@ -87,7 +87,7 @@ sequenceDiagram
       PayPayApp->>PayPayLogin: Gửi thông tin đăng nhập Phone/Password
       PayPayLogin-->>Consent: Hiển thị màn hình chấp thuận
       User->>Consent: Chập nhận liên kết
-      Consent-->>TVLApp: Điều hướng về TVL (/mypage) app thông qua URLScheme kèm theo Token
+
     end
 
   else Không có App PayPay
@@ -103,12 +103,17 @@ sequenceDiagram
       TVLApp->>PayPayLogin: Gửi thông tin đăng nhập Phone/Password
       PayPayLogin-->>Consent: Hiển thị màn hình chấp thuận
       User->>Consent: Chấp nhận liên kết
-      Consent-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token
     end
 
   end
+  Consent-->>TVLBE: Response API liên kết thành công kèm Authorization Code
+  opt iOS
+  TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua Deeplink:Onelink
+  end
+  opt Android
+  TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua URL Scheme
+  end
 
-  TVLApp->>TVLBE: Gửi Authorization Code
   TVLBE->>PayPayLogin: 8. Gọi API lấy Access Token
   PayPayLogin-->>TVLBE: 9. Trả về Access Token
   TVLBE->>TVLBE: 10. Lưu token & thông tin vào bảng Session
