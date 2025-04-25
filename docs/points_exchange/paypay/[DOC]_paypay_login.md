@@ -36,27 +36,43 @@
 - Luồng xử lý chính bao gồm các bước sau:
 
 - **Bước 1:** Người dùng mở ứng dụng TVL và nhấn nút "Đổi điểm PayPay" trên màn hình MyPage.
-- **Bước 2:** Ứng dụng TVL kiểm tra điều kiện:
-  - Nếu thiết bị có App PayPay:
-    - Mở App PayPay.
-  - Nếu thiết bị không có App PayPay:
-    - Mở trang đăng nhập PayPay trong WebView của TVL App.
-    - Trong môi trường phát triển: điều hướng đến domain sandbox https://stg-www.sandbox.paypay.ne.jp/.
-- **Bước 3:** Ứng dụng (App PayPay hoặc WebView) gọi luồng đăng nhập PayPay.
-  - Nếu đã đăng nhập trước đó, hệ thống sẽ bỏ qua bước đăng nhập và chuyển thẳng đến màn hình xác nhận liên kết.
-  - Nếu chưa đăng nhập:
-    - Hiển thị màn hình đăng nhập.
-    - Người dùng nhập số điện thoại & mật khẩu.
-    - Gửi thông tin xác thực đến hệ thống PayPay.
-- **Bước 4:** Sau khi xác thực thành công, hiển thị màn hình chấp thuận liên kết tài khoản PayPay với TVL.
-  - Người dùng nhấn đồng ý liên kết.
-- **Bước 5:** Hệ thống PayPay redirect trở lại ứng dụng TVL bằng URLScheme, kèm theo Authorization Code.
-- **Bước 6:** TVL App gửi Authorization Code đến TVL Backend.
-- **Bước 7:** TVL Backend gọi PayPay API để:
-  - Đổi Authorization Code lấy Access Token.
-- **Bước 8:** TVL Backend lưu Access Token và thông tin liên kết vào bảng Session.
-- **Bước 9:** Ứng dụng TVL hiển thị thông báo liên kết thành công đến người dùng.
-- **Kết thúc**
+- **Bước 2:** Ứng dụng kiểm tra thiết bị có cài đặt App PayPay hay không:
+
+  - Trường hợp 1: Có cài đặt App PayPay
+    - TVL App thực hiện mở App PayPay thông qua URLScheme.
+    - Nếu là môi trường phát triển, yêu cầu người dùng bật Developer Mode (ấn logo PayPay 7 lần).
+    - App PayPay gọi kiểm tra trạng thái đăng nhập:
+      - Nếu chưa đăng nhập:
+        - Hiển thị màn hình đăng nhập.
+        - Người dùng nhập số điện thoại và mật khẩu để đăng nhập.
+    - Sau khi đăng nhập thành công, hệ thống hiển thị màn hình chấp thuận liên kết tài khoản với TVL.
+    - Người dùng nhấn “Chấp nhận liên kết”.
+  - Trường hợp 2: Không có App PayPay
+    - TVL App mở trang đăng nhập PayPay thông qua WebView nội bộ.
+    - Nếu là môi trường phát triển, điều hướng đến domain sandbox: https://stg-www.sandbox.paypay.ne.jp/.
+    - Gọi kiểm tra trạng thái đăng nhập:
+      - Nếu chưa đăng nhập:
+        - Hiển thị màn hình đăng nhập trong WebView.
+        - Người dùng nhập số điện thoại và mật khẩu.
+      - Sau khi đăng nhập thành công, hiển thị màn hình chấp thuận liên kết.
+      - Người dùng nhấn “Chấp nhận liên kết”.
+
+- **Bước 3** Sau khi người dùng chấp thuận liên kết, hệ thống PayPay thực hiện:
+
+  - Gửi response liên kết thành công đến TVL Backend, kèm theo Authorization Code.
+
+- **Bước 4:** Tùy theo nền tảng thiết bị, backend điều hướng về ứng dụng TVL:
+
+  - Với iOS: sử dụng Deeplink Onelink để điều hướng về màn hình /mypage của TVL App, kèm theo Token liên kết.
+  - Với Android: sử dụng URLScheme để điều hướng về /mypage, kèm theo Token.
+
+- **Bước 5**
+  - Sau khi nhận được Authorization Code, TVL Backend thực hiện:
+    - Gọi API PayPay để đổi Authorization Code lấy Access Token.
+    - Nhận về Access Token từ PayPay.
+    - Lưu Access Token và thông tin tài khoản người dùng vào bảng Session của hệ thống.
+- **Bước 6**
+  - TVL App hiển thị màn hình chọn số points để đổi
 
 ```mermaid
 sequenceDiagram
@@ -124,12 +140,17 @@ sequenceDiagram
 
 ```
 
+- Chú thích:
+
+  - **Access Token** chỉ có giá trị hiệu lực trong vòng 15 phút, nếu quá hạn sẽ phải thực hiện lại luồng
+  - **TVLBE** Xử lý khởi tạo Deeplink Oneline ở dòng [code này](https://github.com/apple-world/tvl_nuxt_web2/blob/da74f773b9634f634cf5e6457bfec2c615479b4f/components/points_exchange/paypay/PaypaySelectBox.vue#L56-L68)
+  - **Deeplink Onelink** được cung cấp bởi dịch vụ Appsflyer
+
 - TVL Backend giờ đóng vai trò:
   - Nhận callback từ PayPay chứa authorization code.
   - Gọi PayPay token API để đổi lấy access token và thông tin người dùng.
   - Lưu thông tin vào bảng Session để đánh dấu trạng thái login.
   - Trả kết quả về lại frontend.
-  - Access Token chỉ có giá trị hiệu lực trong vòng 15 phút, nếu quá hạn sẽ phải thực hiện lại luồng
 
 ## API:
 
@@ -141,12 +162,20 @@ sequenceDiagram
 | `/paypay/link-account` | POST   | Lưu thông tin tài khoản PayPay vào bảng Session của TVL    |
 
 - **Lưu ý:** Trong luồng đăng nhập PayPay, không có API từ phía TVL trực tiếp xử lý việc login, vì tất cả việc xác thực đều thực hiện trên nền tảng PayPay. Tuy nhiên, một số thông tin kỹ thuật liên quan có thể được sử dụng từ tài liệu chính thức của PayPay:
+
+- **PayPay**
   | Thông tin | Mô tả |
   |----------------------------|----------------------------------------------------------------------|
   | **URL môi trường Production** | `https://www.paypay.ne.jp/opa/authorize` |
   | **URL môi trường Sandbox** | `https://stg-www.sandbox.paypay.ne.jp/` |
   | **Tài liệu chính thức** | [PayPay Official Docs](https://www.paypay.ne.jp/opa/doc/v1.0/account_link.html#section/Acquire-user-authorization) |
-  | **OAuth Flow** | Authorization Code Grant |
+
+- **Appsflyer**
+  | Thông tin | Mô tả |
+  | ----------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+  | **URL môi trường Production** | `https://travelist.onelink.me/VSoR` |
+  | **URL môi trường Sandbox** | `https://travelist.onelink.me/VSoR` |
+  | **Tài liệu chính thức** | [Appsflyer Onelink](https://support.appsflyer.com/hc/vi/articles/208874366-Liên-kết-và-trải-nghiệm-OneLink) |
 
 - Developer Mode:
   | Nền tảng | Cách bật chế độ |
