@@ -34,22 +34,22 @@
 ## Flow:
 
 - Luồng xử lý chính bao gồm các bước sau:
-- **Bước 1** Người dùng mở ứng dụng TVL và nhấn nút "Đổi điểm PayPay" từ màn hình MyPage.
-- **Bước 2** Ứng dụng TVL kiểm tra nếu thiết bị có cài đặt App PayPay:
-  - Nếu có App PayPay:
-    - App TVL mở ứng dụng PayPay thông qua URL scheme.
-    - Trong môi trường phát triển, người dùng cần ấn 7 lần vào logo để bật Developer Mode.
-    - Người dùng chọn “Log in with Developer Account” (nếu có).
-  - Nếu không có App PayPay:
-    - Ứng dụng TVL mở trình duyệt mặc định, điều hướng đến trang đăng nhập của PayPay.
-    - Trong môi trường phát triển, người dùng sẽ được điều hướng tới domain sandbox (https://stg-www.sandbox.paypay.ne.jp/).
-- **Bước 3** Người dùng nhập số điện thoại và mật khẩu của tài khoản PayPay.
-- **Bước 4** Sau khi xác thực thành công, PayPay hiển thị màn hình chấp thuận liên kết tài khoản.
-- **Bước 5** Người dùng nhấn chấp thuận, hệ thống PayPay redirect về lại ứng dụng TVL (deep link hoặc universal link), kèm theo authorization code.
-- **Bước 6** Ứng dụng TVL nhận code và gửi code này về TVL Backend để xử lý.
-- **Bước 7** TVL Backend gọi API của PayPay để đổi code lấy access token và thông tin người dùng.
-- **Bước 8** Sau khi nhận được access token, hệ thống sẽ lưu thông tin đăng nhập PayPay vào bảng Session.
-- **Bước 9** Ứng dụng TVL cập nhật trạng thái liên kết thành công và thông báo cho người dùng.
+  - **Bước 1** Người dùng mở ứng dụng TVL và nhấn nút "Đổi điểm PayPay" từ màn hình MyPage.
+  - **Bước 2** Ứng dụng TVL kiểm tra nếu thiết bị có cài đặt App PayPay:
+    - Nếu có App PayPay:
+      - App TVL mở ứng dụng PayPay thông qua URL scheme.
+      - Trong môi trường phát triển, người dùng cần ấn 7 lần vào logo để bật Developer Mode.
+      - Người dùng chọn “Log in with Developer Account” (nếu có).
+    - Nếu không có App PayPay:
+      - Ứng dụng TVL mở trình duyệt mặc định, điều hướng đến trang đăng nhập của PayPay.
+      - Trong môi trường phát triển, người dùng sẽ được điều hướng tới domain sandbox (https://stg-www.sandbox.paypay.ne.jp/).
+  - **Bước 3** Người dùng nhập số điện thoại và mật khẩu của tài khoản PayPay.
+  - **Bước 4** Sau khi xác thực thành công, PayPay hiển thị màn hình chấp thuận liên kết tài khoản.
+  - **Bước 5** Người dùng nhấn chấp thuận, hệ thống PayPay redirect về lại ứng dụng TVL (deep link hoặc universal link), kèm theo authorization code.
+  - **Bước 6** Ứng dụng TVL nhận code và gửi code này về TVL Backend để xử lý.
+  - **Bước 7** TVL Backend gọi API của PayPay để đổi code lấy access token và thông tin người dùng.
+  - **Bước 8** Sau khi nhận được access token, hệ thống sẽ lưu thông tin đăng nhập PayPay vào bảng Session.
+  - **Bước 9** Ứng dụng TVL cập nhật trạng thái liên kết thành công và thông báo cho người dùng.
 
 ```mermaid
 sequenceDiagram
