@@ -79,36 +79,7 @@ sequenceDiagram
 
 ## Out of Scope:
 
-- Dưới đây là một số điểm không nằm trong phạm vi xử lý của tính năng này, hãy lưu ý:
-  - Quản lý số dư và giao dịch PayPay chi tiết
-    - Xem lịch sử giao dịch trên PayPay.
-    - Nạp/rút tiền hoặc đổi điểm sang tiền mặt.
-  - Xác thực bảo mật mở rộng
-    - Thực hiện xác thực hai yếu tố (2FA) như OTP qua SMS hoặc email.
-    - Sinh và quản lý mã QR PayPay.
-  - Quản lý tài khoản người dùng TVL
-    - Đăng ký, đăng nhập, hoặc thay đổi thông tin tài khoản TVL.
-    - Đồng bộ điểm TVL với các hệ thống khác ngoài PayPay.
-  - Tương tác với các cổng thanh toán khác
-    - Đổi điểm sang các ví điện tử khác (Momo, ZaloPay, AirPay…).
-    - Thanh toán trực tiếp qua cổng ngân hàng.
-  - Xử lý lỗi mạng/đứt kết nối
-    - Cơ chế retry, hiển thị thông báo lỗi khi mất kết nối Internet.
-    - Quản lý trạng thái ngoại tuyến.
-  - Tối ưu UI/UX và analytics
-  - Thu thập dữ liệu phân tích hành vi người dùng trong flow này. -
-    - A/B testing hay tối ưu giao diện chuyển điểm.
-  - Xử lý đa ngôn ngữ và quốc tế hóa
-    - Hiển thị ngôn ngữ khác ngoài tiếng Việt/tiếng Anh.
-    - Định dạng ngày giờ, tiền tệ theo locale khác.
-  - Quản lý phiên làm việc và bảo mật token
-    - Token refresh, hết hạn session, logout tự động.
-  - Các tác vụ hậu xử lý sau khi liên kết thành công
-    - Gửi email hoặc thông báo đẩy (push notification) xác nhận.
-  - Đồng bộ lịch sử đổi điểm lên hệ thống CRM.
-    - Test tự động và CI/CD
-    - Viết script unit test, e2e test cho flow đổi điểm.
-    - Thiết lập pipeline CI/CD để deploy flow này.
+- Updating...
 
 ## References:
 

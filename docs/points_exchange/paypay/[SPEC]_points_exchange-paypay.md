@@ -98,23 +98,7 @@ sequenceDiagram
 
 ## Out of Scope:
 
-- Dưới đây là một số điểm không nằm trong phạm vi xử lý của tính năng này, hãy lưu ý:
-  - Quản lý tài khoản TVL:
-    - Đăng ký tài khoản mới, thay đổi mật khẩu, hoặc cập nhật thông tin cá nhân của người dùng.
-    - Xử lý trường hợp quên mật khẩu hoặc xác thực hai lớp (2FA).
-  - Quản lý ví PayPay:
-    - Nạp tiền vào ví PayPay, rút tiền về ngân hàng, xem lịch sử giao dịch chi tiết trên PayPay.
-    - Thay đổi cài đặt bảo mật hoặc thông tin cá nhân trên ứng dụng PayPay.
-  - Xử lý lỗi mạng / server chung:
-    - Cơ chế retry tự động khi mất kết nối internet toàn cục (ngoài việc hiển thị thông báo lỗi cơ bản).
-    - Giải pháp fallback nếu TVL Server hoặc PayPay Server bị downtime kéo dài.
-  - Hỗ trợ đa nền tảng bao gồm SP và PC.
-  - Hỗ trợ việc phân tích các giao dịch.
-  - Tự động gia hạn token PayPay khi hết hạn mà không qua flow UI.
-  - Lưu session lâu dài hoặc “Remember me” cho PayPay.
-  - Các phương thức thanh toán khác.
-  - Tích hợp với ví điện tử/ngân hàng khác ngoài PayPay.
-  - Chuyển điểm sang Gift Card, voucher, hoặc partner khác.
+- Updating...
 
 ## References:
 
