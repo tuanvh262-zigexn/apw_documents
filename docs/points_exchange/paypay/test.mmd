@@ -45,7 +45,7 @@ sequenceDiagram
     end
     
   end
-  Consent-->>TVLBE: Response API liên kết thành công kèm Authorization Code
+  Consent-->>TVLBE: Response API liên kết thành công kèm
   opt iOS
   TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua Deeplink:Onelink
   end
@@ -53,9 +53,7 @@ sequenceDiagram
   TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua URL Scheme
   end
   
-  TVLBE->>PayPayLogin: 8. Gọi API lấy Access Token
-  PayPayLogin-->>TVLBE: 9. Trả về Access Token
-  TVLBE->>TVLBE: 10. Lưu token & thông tin vào bảng Session
+  TVLBE->>TVLBE: 10. Lưu thông tin vào bảng Session
   TVLApp-->>User: Kết thúc liên kết
 
 
