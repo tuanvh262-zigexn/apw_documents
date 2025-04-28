@@ -93,8 +93,8 @@ sequenceDiagram
 
     opt Môi trường phát triển
       PayPayApp->>PayPayApp: Bật Developer Mode (ấn logo 7 lần)
-
     end
+
     PayPayApp->>PayPayLogin: Kiểm tra Login PayPay
 
     opt Chưa Login PayPay
@@ -108,9 +108,11 @@ sequenceDiagram
 
   else Không có App PayPay
     TVLApp->>TVLApp: 2. Điều hướng đến PayPay
+
     opt Môi trường phát triển
       TVLApp->>TVLApp: 2. Điều hướng đến PayPay (Sandbox)
     end
+
     TVLApp->>PayPayLogin: Kiểm tra Login PayPay
 
     opt Chưa Login PayPay
@@ -122,18 +124,19 @@ sequenceDiagram
     end
 
   end
-  Consent-->>TVLBE: Response API liên kết thành công kèm
-  opt iOS
-  TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua Deeplink:Onelink
-  end
-  opt Android
-  TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua URL Scheme
-  end
 
+  Consent-->>TVLBE: Response API liên kết thành công
   TVLBE->>TVLBE: 10. Lưu thông tin vào bảng Session
+
+  opt iOS
+    TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua Deeplink:Onelink
+  end
+
+  opt Android
+    TVLBE-->>TVLApp: Điều hướng về TVL (/mypage) kèm theo Token thông qua URL Scheme
+  end
+
   TVLApp-->>User: Kết thúc liên kết
-
-
   Note over User,TVLBE: Kết thúc luồng xử lý đăng nhập & liên kết
 
 ```
