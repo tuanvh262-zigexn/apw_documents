@@ -66,8 +66,6 @@
 
   - **Bước 11:** Người dùng điền thông tin đăng ký (Tên, số điện thoại, email, passwords), các thông tin còn thiếu.
 
-  - **Bước 12:** TVL Frontend gửi thông tin đăng ký tài khoản về TVL Backend
-
   - **Bước 12:** Chuyển hướng sau khi tạo thông tin tài khoản TVL.
 
     - Nếu tạo tài khoản thành công: Chuyển đến màn hình Application List.
