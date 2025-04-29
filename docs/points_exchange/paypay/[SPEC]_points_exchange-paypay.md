@@ -102,4 +102,5 @@ sequenceDiagram
 
 ## References:
 
-- [PayPay Login](./[SPEC]_paypay_login.md)
+- [DOC PayPay Login](./[DOC]_paypay_login.md)
+- [SPEC PayPay Login](./[SPEC]_paypay_login.md)
