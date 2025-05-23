@@ -1,0 +1,17 @@
+/* .vitepress/theme/custom.css */
+:root {
+  --vp-c-brand-1: #FE7B74;
+  --vp-c-brand-2: #FE7B74;
+  --vp-c-brand-3: #FE7B74;
+  --vp-sidebar-bg-color: #fff;
+  --vp-code-color: #476582;
+}
+
+.dark {
+  --vp-sidebar-bg-color: #1b1b1f;
+}
+
+
+.vp-doc a {
+  text-decoration: none;
+}
