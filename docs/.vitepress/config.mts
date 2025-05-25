@@ -5,7 +5,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 export default withMermaid({
   title: "APW design docs",
   description: "APW documentation",
-  base: process.env.VITE_BASE_URL || "/apw_docs/",
+  base: process.env.VITE_BASE_URL || "/",
   head: [["link", { rel: "icon", href: "https://travelist.jp/_nxtmp/images/sp/favicon-152.ico" }]],
   lastUpdated: true,
   vite: {
