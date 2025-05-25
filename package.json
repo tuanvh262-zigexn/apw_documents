@@ -1,7 +1,8 @@
 {
-  "name": "kpiee-docs",
+  "name": "apw-docs",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.15.2",
     "mermaid": "^10.6.1",
     "vitepress": "^1.0.0-rc.35",
     "vitepress-plugin-mermaid": "^2.0.16"

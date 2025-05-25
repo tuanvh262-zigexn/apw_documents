@@ -1,12 +1,18 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
-  title: "kpiee design docs",
-  description: "kpiee documentation",
-  head: [["link", { rel: "icon", href: "/logo.ico" }]],
+  title: "APW design docs",
+  description: "APW documentation",
+  base: process.env.VITE_BASE_URL || "/apw_docs/",
+  head: [["link", { rel: "icon", href: "https://travelist.jp/_nxtmp/images/sp/favicon-152.ico" }]],
   lastUpdated: true,
+  vite: {
+    server: {
+      port: 5175,
+    },
+  },
   mermaid: {
     theme: "base",
     themeVariables: {
@@ -19,41 +25,115 @@ export default withMermaid({
     },
   },
   themeConfig: {
-    logo: "/logo.ico",
+    logo: "https://travelist.jp/_nxtmp/images/sp/favicon-152.ico",
 
     search: {
       provider: "local",
     },
 
-    // https://vitepress.dev/reference/default-theme-config
-    // nav: [
-    //   { text: 'Home', link: '/' },
-    //   { text: 'はじめに', link: '/onboarding/index.md' }
-    // ],
+    outline: {
+      level: [2, 3],
+    },
 
     sidebar: [
       {
-        text: "はじめに",
+        text: "Mở đầu",
         link: "/onboarding/",
       },
       {
-        text: '基本設計',
-        link: '/basic_design/',
+        text: "Thiết kế tổng thể",
         items: [
-          { text: '15期2Q', link: '/basic_design/15_2/' },
+          {
+            text: "Giới thiệu",
+            link: "/architecture/about",
+          },
+          {
+            text: "Tổng quan hệ thống",
+            link: "/architecture/overview",
+          },
         ]
       },
       {
-        text: '詳細設計',
-        link: '/detail_design/',
+        text: "Tính năng",
+        collapsed: true,
         items: [
-          { text: '15期2Q', link: '/detail_design/15_2/' },
+          {
+            text: "Trao đổi points",
+            collapsed: true,
+            items: [
+              {
+                text: "Paypay",
+                link: "/architecture/features/exchange_points/paypay",
+              },
+            ]
+          }
         ]
-      }
+      },
+      {
+        text: "Mẫu tài liệu thiết kế",
+        items: [
+          {
+            text: "Thiết kế cơ bản",
+            link: "/onboarding/basic-design-format",
+          },
+          {
+            text: "Thiết kế chi tiết sửa lỗi",
+            link: "/onboarding/bugfix-design-format",
+          },
+        ],
+      },
+      {
+        text: "Chức năng",
+        collapsed: false,
+        items: [
+          {
+            text: "Web",
+            collapsed: true,
+            items: [
+            ],
+          },
+          {
+            text: "Admin",
+            collapsed: true,
+            items: [
+            ],
+          },
+          {
+            text: "Mobile",
+            collapsed: true,
+            items: [
+            ],
+          },
+        ],
+      },
+      {
+        text: "Sửa lỗi",
+        collapsed: false,
+        items: [
+          {
+            text: "Web",
+            collapsed: true,
+            items: [
+            ],
+          },
+          {
+            text: "Admin",
+            collapsed: true,
+            items: [
+            ],
+          },
+          {
+            text: "Mobile",
+            collapsed: true,
+            items: [
+            ],
+          },
+        ],
+      },
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
-})
+      { icon: "github", link: "https://github.com/tuanvh262-zigexn/apw_documents" },
+    ],
+  },
+});

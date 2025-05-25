@@ -1,82 +1,113 @@
 ---
-title: はじめに
+title: Lời mở đầu
 ---
-# はじめに
+# Lời mở đầu
 
-## 設計書作成について
-kpieeの開発においては実際の実装作業に入る前に**設計書の作成**を行っています。
+Tài liệu này giải thích về quy trình thiết kế trong phát triển và cách tạo tài liệu thiết kế.
 
-実装作業に入る前に事前に設計書を作成し、
-それらの設計書を事前に開発者間でレビューすることで、
-開発の品質を高め開発の手戻りを減らすようにしています。
+## Thiết kế trong phát triển
+Trong quá trình phát triển, trước khi bắt đầu lập trình, nhóm phát triển sẽ tạo tài liệu thiết kế.
 
-このページではkpieeの開発における、
-**設計書の作成**について解説します。
+Việc chuẩn bị tài liệu thiết kế trước khi bắt đầu triển khai giúp nâng cao chất lượng phát triển và giảm thiểu việc làm lại, do đó quy trình tạo và phê duyệt tài liệu thiết kế đã được thiết lập.
 
+Quy trình thiết kế được chia thành hai loại chính:
 
-#### 設計書プロセスの概要
-kpieeの設計プロセスにおいては、以下の2つの設計書を作成しています。
+1. **Phát triển chức năng mới**
+2. **Sửa lỗi (bug fix)**
 
-1. 基本設計書
-2. 詳細設計書
+## Cấu trúc tài liệu
 
-また、設計書とは別ですが設計書の作成後にセルフチェックを行うためのチェックリストを作成しています。
+Tài liệu này bao gồm các phần sau:
 
+1. **Chức năng mới**
+2. **Sửa lỗi**
+   - Tài liệu thiết kế liên quan đến việc sửa các lỗi trong chức năng đã có
 
-以下にそれぞれの設計書のドキュメントの役割や目的を記載します。
+## Các loại tài liệu thiết kế
 
-###### 1. 基本設計書
-基本設計書は、開発するシステムの概要を記載するために作成します。
-どのようなアーキテクチャ・インフラ構成でシステムを構築するかを記載します。
+### Tài liệu thiết kế cơ bản (Basic Design)
+Dùng để mô tả tổng quan về hệ thống được phát triển. Bắt buộc phải tạo khi phát triển chức năng mới.
+新規機能開発時に作成が必要です。
 
-基本設計書は、以下の**フォーマットをコピーして作成**し、**基本設計書フォルダに格納**するようにしてください。
+[Định dạng tài liệu thiết kế cơ bản](./basic-design-format.md)
 
-下記のフォルダに、過去に作成した基本設計書が全て格納されているので、基本設計書を作る際の参考にしてください！
+#### Mục đích:
+- Xác định định hướng thiết kế toàn hệ thống
+- Rà soát cấu trúc hạ tầng, kiến trúc và mô hình dữ liệu
 
-######## 基本設計書フォーマット
-[フォーマット](https://docs.google.com/spreadsheets/d/1cks71Eu9QaG0zHHUIWTwymKuGg4nroXreteRGcyA_mI/edit##gid=487657193)
+#### 関係者
+- **レビュー担当者**: 井戸端 / 中村
+- **持ち込み担当者**: 輪湖 / 原口 / 中村
 
-######## 基本設計書フォルダ
-下記のフォルダに作成したフォーマットを格納するようにしてください。
+#### Nội dung bao gồm:
+- Mục đích và tổng quan chức năng
+- Tổng quan cấu trúc hệ thống
+- Định hướng thiết kế kiến trúc
+- Cấu trúc hạ tầng
+- Mô hình dữ liệu
+- Luồng xử lý cơ bản
 
-[フォルダ](https://drive.google.com/drive/u/0/folders/191OoACpXJe-4aEPcVZp3n5KKoB3aku3_)
+#### Vị trí lưu file:
+Các tài liệu thiết kế cơ bản có thể tìm thấy ở đây:
+```
+/feature/[Chức năng]/[RedmineID]/basic_design.md
+```
 
+Ví du:
+```
+/feature/reports/123/basic_design.md
+```
 
-###### 2. 詳細設計書
-詳細設計書は、実際に開発を行う開発者が実装すべき内容を正しく理解し、
-実装できるようにするためのドキュメントです。
+#### Đối với sửa lỗi
+Tài liệu ghi lại phân tích nguyên nhân lỗi và phương án sửa chữa.
 
-基本設計書がアーキテクチャレベルの記載や、大きな処理の流れ構造を記載するものであるのに対して、
-詳細設計書は、その処理をどのようにプログラムとして落とし込むかというのをドキュメンテーションするものです。
+[Thiết kế sửa lỗi](./bugfix-design-format.md)
 
+#### Vị trí lưu file:
+- **Sửa lỗi:**:
+  ```
+  /fix/[Chức năng]/[RedmineID].md
+  ```
+  Ví du:
+  ```
+  /fix/reports/123.md
+  ```
 
-詳細設計書は、以下のフォーマットを作成してください。
+## Cách tạo tài liệu
 
-###### 詳細設計書のフォーマット
-[フォーマット](https://github.com/f-scratch/kpiee-allstars/issues/new/choose)
+Tài liệu này sử dụng VitePress để tạo.
+Để thêm tài liệu thiết kế mới, thực hiện các bước sau:
 
-::: info
-新規開発とバグ改修でフォーマットが別れているので、適切な方を選択して利用してください。
+1. **Chọn thư mục phù hợp**
+   - Chức năng mới: `/feature/[loại chức năng]/[ID ticket]/`
+   - Sửa lỗi: `/fix/[loại chức năng]/[ID ticket].md`
+
+2. **Tạo tài liệu thiết kế**
+   - Thiết kế cơ bản: `basic_design.md`
+
+3. **Thêm vào sidebar**
+   - Chỉnh sửa file `docs/.vitepress/config.mts`
+   - Thêm đường dẫn đến tài liệu mới vào sidebar ở phần phù hợp (chức năng mới hoặc sửa lỗi).
+
+4. **Kiểm tra nội dung trên local**
+```bash
+yarn install
+
+yarn run docs:dev
+```
+
+::: warning
+VitePress yêu cầu Node.js phiên bản 18 trở lên
+Khuyến khích sử dụng [volta](https://volta.sh/) để quản lý phiên bản Node.js.
 :::
 
-#### 設計のチェックリスト
-設計書の作成後に、設計の観点のヌケモレを防ぐためにチェックリストの実施を行ってください。
+5. **Kiểm tra build**
+```bash
+yarn run docs:build
+```
 
-設計書のチェックリストは、[チェックリスト](https://example.com)
+## Thông tin thêm
 
-
-#### 設計書の作成方法
-機能開発を行う際には、以下の順番で設計書の作成を進めるようにしてください。
-
-1. 基本設計書の作成
-   - 作成
-   - レビュー
-   - 承認
-2. 詳細設計書の作成
-   - 作成
-   - レビュー
-   - 承認
-
-
-
-続きは執筆中....
+Xem thêm tại:
+- [VitePress](https://vitepress.dev/)
+- [GitHub Pages](https://pages.github.com/)
