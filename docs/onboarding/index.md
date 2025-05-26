@@ -35,10 +35,6 @@ Dùng để mô tả tổng quan về hệ thống được phát triển. Bắt
 - Xác định định hướng thiết kế toàn hệ thống
 - Rà soát cấu trúc hạ tầng, kiến trúc và mô hình dữ liệu
 
-#### 関係者
-- **レビュー担当者**: 井戸端 / 中村
-- **持ち込み担当者**: 輪湖 / 原口 / 中村
-
 #### Nội dung bao gồm:
 - Mục đích và tổng quan chức năng
 - Tổng quan cấu trúc hệ thống
