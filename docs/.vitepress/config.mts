@@ -66,6 +66,20 @@ export default withMermaid({
                 link: "/architecture/features/exchange_points/paypay",
               },
             ]
+          },
+          {
+            text: "Authen",
+            collapsed: true,
+            items: [
+              {
+                text: "Register",
+                link: "/architecture/features/authen/register",
+              },
+              {
+                text: "Login",
+                link: "/architecture/features/authen/login",
+              },
+            ]
           }
         ]
       },
