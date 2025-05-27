@@ -41,6 +41,15 @@ export default withMermaid({
         link: "/onboarding/",
       },
       {
+        text: "Detail Designs",
+        items: [
+          {
+            text: "TDA-1456",
+            link: "/task-detail-designs/TDA-1456",
+          },
+        ]
+      },
+      {
         text: "Thiết kế tổng thể",
         items: [
           {
