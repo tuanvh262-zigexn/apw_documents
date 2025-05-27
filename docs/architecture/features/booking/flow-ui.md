@@ -1,5 +1,5 @@
 ## Tổng quan
-Tài liệu mô tả tổng quan về luồng đặt vé máy bay trên hệ thống Travelist
+Tài liệu mô tả tổng quan về luồng search vé máy bay trên hệ thống Travelist
 
 ## Nội dung chính
 ### Repositories
