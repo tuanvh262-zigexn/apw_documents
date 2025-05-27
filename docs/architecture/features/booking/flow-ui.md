@@ -8,7 +8,6 @@ Tài liệu mô tả tổng quan về luồng search vé máy bay trên hệ th�
   - https://github.com/apple-world/tvl_nuxt_web2
 
 - Search vé máy bay:
-  - https://github.com/apple-world/tvl_api_django
   - https://github.com/apple-world/tvl_gocrawler
 
 ### Luồng đặt vé
