@@ -66,6 +66,16 @@ export default withMermaid({
                 link: "/architecture/features/exchange_points/paypay",
               },
             ]
+          },
+          {
+            text: "Tìm kiếm vé máy bay",
+            collapsed: true,
+            items: [
+              {
+                text: "Luồng giao diện",
+                link: "/architecture/features/booking/flow-ui",
+              },
+            ]
           }
         ]
       },
