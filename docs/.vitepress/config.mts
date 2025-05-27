@@ -10,6 +10,7 @@ export default withMermaid({
   lastUpdated: true,
   vite: {
     server: {
+      host: '0.0.0.0',
       port: 5175,
     },
   },
