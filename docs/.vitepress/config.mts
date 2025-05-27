@@ -66,6 +66,16 @@ export default withMermaid({
                 link: "/architecture/features/exchange_points/paypay",
               },
             ]
+          },
+          {
+            text: "Mypage",
+            collapsed: true,
+            items: [
+              {
+                text: "Mypage",
+                link: "/architecture/features/mypage/mypage",
+              },
+            ]
           }
         ]
       },
