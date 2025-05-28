@@ -72,4 +72,4 @@ sequenceDiagram
     - `departure_date`: Ngày khởi hành
     - `departure_airport`: điểm sân bay xuất phát
     - `arrival_airport`: điểm sân bay kết thúc
-  Example: https://sand.travelist.work/api/v1/search/flights/20250602/ANA/CTS/KIX
+- Example: https://sand.travelist.work/api/v1/search/flights/20250602/ANA/CTS/KIX
