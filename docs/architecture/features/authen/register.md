@@ -45,10 +45,15 @@ sequenceDiagram
     participant SendMailService
     PageRegister->>PageConfirm: Type member infomation
     PageConfirm->>API: Click button "登録する" and call api /api/v2/member/register
-    API->>DB: Save member infomation
-    API->>SendMailService: Send mail notion to user
-    API-->>PageConfirm: Response
-    PageConfirm->>API: call api login
-    API-->>PageConfirm: Response
-    PageConfirm->>PageComplete: redirect to
+    alt Đăng ký thành công
+        API->>DB: Save member infomation
+        API->>SendMailService: Send mail notion to user
+        API-->>PageConfirm: Response thành công
+        PageConfirm->>API: call api login
+        API-->>PageConfirm: Response
+        PageConfirm->>PageComplete: redirect to
+    else Đăng ký thất bại
+        API-->>PageConfirm: Response lỗi
+        PageConfirm-->>PageConfirm: Hiển thị thông báo lỗi
+    end
 ```

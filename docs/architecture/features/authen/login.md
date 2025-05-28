@@ -33,5 +33,22 @@ sequenceDiagram
     DB-->>API: Trả về thông tin member
     API->>SendMailService: Gửi email thông báo trạng thái đăng nhập đến user 
     API-->>PageLogin: Response
-    PageLogin->>MyPage: redirect To
+    PageLogin->>MyPage: redirect TosequenceDiagram
+    participant PageLogin
+    participant MyPage
+    participant API
+    participant DB
+    participant SendMailService
+    PageLogin->>API: Type email, password and call api api/v2/member/login
+    API->>DB: Lấy thông tin member thoả mãn email và password
+    alt Đăng nhập thành công
+        DB-->>API: Trả về thông tin member
+        API->>SendMailService: Gửi email thông báo trạng thái đăng nhập đến user 
+        API-->>PageLogin: Response thành công
+        PageLogin->>MyPage: redirect To
+    else Đăng nhập thất bại
+        DB-->>API: Không tìm thấy member
+        API-->>PageLogin: Response lỗi
+        PageLogin-->>PageLogin: Hiển thị thông báo lỗi
+    end
 ```
