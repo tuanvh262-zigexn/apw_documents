@@ -10,6 +10,7 @@ export default withMermaid({
   lastUpdated: true,
   vite: {
     server: {
+      host: '0.0.0.0',
       port: 5175,
     },
   },
@@ -65,6 +66,16 @@ export default withMermaid({
                 text: "Paypay",
                 link: "/architecture/features/exchange_points/paypay",
               },
+            ]
+          },
+          {
+            text: "Mypage",
+            collapsed: true,
+            items: [
+              {
+                text: "Mypage",
+                link: "/architecture/features/mypage/mypage",
+              }
             ]
           },
           {
