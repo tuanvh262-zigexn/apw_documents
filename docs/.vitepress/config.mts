@@ -75,6 +75,20 @@ export default withMermaid({
               {
                 text: "Mypage",
                 link: "/architecture/features/mypage/mypage",
+              }
+            ]
+          },
+          {
+            text: "Authen",
+            collapsed: true,
+            items: [
+              {
+                text: "Register",
+                link: "/architecture/features/authen/register",
+              },
+              {
+                text: "Login",
+                link: "/architecture/features/authen/login",
               },
             ]
           }
