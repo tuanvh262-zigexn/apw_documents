@@ -21,7 +21,7 @@
 - Tổng quan: Các chức năng trên website cũng được tích hợp đầy đủ trên ứng dụng. Bên cạnh đó, ứng dụng còn bổ sung một số tính năng khác, bao gồm hiển thị `rank` và cho phép người dùng chuyển đổi điểm từ Travelist sang bên `PayPay`, `Rakuten` hoặc `Amazon gift card`
 - Chức năng đổi điểm:
 
-![Alt text](./images/exchange.png)
+![Exchange point](./images/exchange.png)
 
 Hiện thị button đổi điểm: để cho phép user có thể đổi `point` từ travelist sang `paypay`/`rakuten`/`amazon gift card`
 
