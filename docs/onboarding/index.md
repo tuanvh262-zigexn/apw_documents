@@ -27,7 +27,6 @@ Tài liệu này bao gồm các phần sau:
 
 ### Tài liệu thiết kế cơ bản (Basic Design)
 Dùng để mô tả tổng quan về hệ thống được phát triển. Bắt buộc phải tạo khi phát triển chức năng mới.
-新規機能開発時に作成が必要です。
 
 [Định dạng tài liệu thiết kế cơ bản](./basic-design-format.md)
 

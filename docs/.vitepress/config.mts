@@ -10,6 +10,7 @@ export default withMermaid({
   lastUpdated: true,
   vite: {
     server: {
+      host: '0.0.0.0',
       port: 5175,
     },
   },
@@ -68,13 +69,37 @@ export default withMermaid({
             ]
           },
           {
+            text: "Mypage",
+            collapsed: true,
+            items: [
+              {
+                text: "Mypage",
+                link: "/architecture/features/mypage/mypage",
+              }
+            ]
+          },
+          {
+            text: "Authen",
+            collapsed: true,
+            items: [
+              {
+                text: "Register",
+                link: "/architecture/features/authen/register",
+              },
+              {
+                text: "Login",
+                link: "/architecture/features/authen/login",
+              },
+            ]
+          },
+          {
             text: "Tìm kiếm vé máy bay",
             collapsed: true,
             items: [
               {
                 text: "Luồng search vé",
                 link: "/architecture/features/booking/flow-ui",
-              },
+              }
             ]
           }
         ]
