@@ -72,7 +72,7 @@ export default withMermaid({
             collapsed: true,
             items: [
               {
-                text: "Luồng giao diện",
+                text: "Luồng search vé",
                 link: "/architecture/features/booking/flow-ui",
               },
             ]

@@ -65,3 +65,11 @@ sequenceDiagram
 - Schema: `airtown.jp`.
 - Lưu thông tin các `flight` đã crawl: bảng `domestic_flight_v2_crawlticket`
   - Khi crawl data `flight` định kì, các data mới sẽ tự động được thêm vào bảng này.
+
+### API search vé
+- Endpoint: 
+  - https://sand.travelist.work/api/v1/search/flights/{departure_date}/{hãng bay}/{departure_airport}/{arrival_airport}
+    - `departure_date`: Ngày khởi hành
+    - `departure_airport`: điểm sân bay xuất phát
+    - `arrival_airport`: điểm sân bay kết thúc
+  Example: https://sand.travelist.work/api/v1/search/flights/20250602/ANA/CTS/KIX
