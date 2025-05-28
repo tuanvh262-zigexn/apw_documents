@@ -91,6 +91,16 @@ export default withMermaid({
                 link: "/architecture/features/authen/login",
               },
             ]
+          },
+          {
+            text: "Tìm kiếm vé máy bay",
+            collapsed: true,
+            items: [
+              {
+                text: "Luồng search vé",
+                link: "/architecture/features/booking/flow-ui",
+              }
+            ]
           }
         ]
       },
